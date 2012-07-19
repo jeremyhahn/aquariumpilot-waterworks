@@ -49,38 +49,38 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 FLASH_IMAGE += \
-aquariumpilot-waterstation.hex \
+aquariumpilot-waterworks.hex \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: aquariumpilot-waterstation.elf secondary-outputs
+all: aquariumpilot-waterworks.elf secondary-outputs
 
 # Tool invocations
-aquariumpilot-waterstation.elf: $(OBJS) $(USER_OBJS)
+aquariumpilot-waterworks.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-g++ -Wl,-Map,aquariumpilot-waterstation.map,--cref -L"/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/Mega2560" -Xlinker-Wl,--gc-sections -mmcu=atmega2560 -o "aquariumpilot-waterstation.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-g++ -Wl,-Map,aquariumpilot-waterworks.map,--cref -L"/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/Mega2560" -Xlinker-Wl,--gc-sections -mmcu=atmega2560 -o "aquariumpilot-waterworks.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-aquariumpilot-waterstation.hex: aquariumpilot-waterstation.elf
+aquariumpilot-waterworks.hex: aquariumpilot-waterworks.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -O ihex aquariumpilot-waterstation.elf  "aquariumpilot-waterstation.hex"
+	-avr-objcopy -R .eeprom -O ihex aquariumpilot-waterworks.elf  "aquariumpilot-waterworks.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: aquariumpilot-waterstation.elf
+sizedummy: aquariumpilot-waterworks.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega2560 aquariumpilot-waterstation.elf
+	-avr-size --format=avr --mcu=atmega2560 aquariumpilot-waterworks.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(ELFS)$(FLASH_IMAGE)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) aquariumpilot-waterstation.elf
+	-$(RM) $(OBJS)$(C_DEPS)$(ELFS)$(FLASH_IMAGE)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) aquariumpilot-waterworks.elf
 	-@echo ' '
 
 secondary-outputs: $(FLASH_IMAGE) $(SIZEDUMMY)

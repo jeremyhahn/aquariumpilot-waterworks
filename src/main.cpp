@@ -17,6 +17,15 @@
 int sdcardPin = 4;       // Arduino SD card pin
 int ethernetPin = 53;    // Arduino ethernet pin
 
+// Data wire is plugged into pin 38 on the Arduino
+#define ONE_WIRE_BUS 38
+
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
+
+// Saltwater reservoir temperature address
+DeviceAddress reservoirTemp = { 0x28, 0xC5, 0x05, 0x07, 0x04, 0x00, 0x00, 0xA0 };
+
 // API key required to communicate with the web service
 String apiKey = "ABC123";
 
@@ -28,9 +37,6 @@ byte ip[] = { 192,168,11,51 };
 
 EthernetServer server(80);
 EthernetClient client;
-
-// Salt water reservoir temperature sensor
-DeviceAddress temp1 = { 0x28, 0x86, 0x54, 0xEB, 0x03, 0x00, 0x00, 0xF5 };
 
 int main(void)
 {
@@ -53,6 +59,9 @@ void setup() {
 	// start the Ethernet connection and the server:
 	Ethernet.begin(mac, ip);
 	server.begin();
+
+	sensors.begin();
+	//sensors.setResolution(reservoirTemp, 12);
 }
 
 void sendHtmlHeader() {
@@ -158,17 +167,17 @@ void loop() {
 
 	        if(!apiKey.equals(key)) {
 
-                   client.println("HTTP/1.1 403 Forbidden");
-		   client.println("Content-Type: text/html");
-		   client.println("X-Powered-By: AquariumPilot v1.0");
-		   client.println();
+               client.println("HTTP/1.1 403 Forbidden");
+			   client.println("Content-Type: text/html");
+			   client.println("X-Powered-By: AquariumPilot v1.0");
+			   client.println();
 
-		   client.println("<h1>Access Denied</h1>");
-		   break;
+			   client.println("<h1>Access Denied</h1>");
+			   break;
 	        }
 
 	        //  this is where we actually *do something*!
-	        char outValue[10] = "MU";
+	        char outValue[20] = "MU";
 	        String jsonOut = String();
 
 	        if(pin != NULL) {
@@ -188,9 +197,34 @@ void loop() {
 
 	            //  set the pin for output
 	            pinMode(selectedPin, OUTPUT);
+	            if (strncmp(value, "TEMP", 4) == 0) {
 
+	            	sensors.requestTemperatures();
+
+					if(selectedPin == 1) {
+						float fTemp = sensors.getTempF(reservoirTemp);
+						dtostrf(fTemp, 2, 2, outValue);
+					}
+
+					//  assemble the json output
+					jsonOut += "{\"";
+					jsonOut += pin;
+					jsonOut += "\":\"";
+					jsonOut += outValue;
+					jsonOut += "\"}";
+
+					//  return value with wildcarded Cross-origin policy
+					client.println("HTTP/1.1 200 OK");
+					client.println("Content-Type: text/html");
+					client.println("X-Powered-By: AquariumPilot v1.0");
+					client.println();
+					client.println(jsonOut);
+
+					break;
+				}
 	            //  determine digital or analog (PWM)
-	            if(strncmp(value, "HIGH", 4) == 0 || strncmp(value, "LOW", 3) == 0){
+	            else if(strncmp(value, "HIGH", 4) == 0
+	            		|| strncmp(value, "LOW", 3) == 0){
 
 	#if DEBUG
 	              //  digital
