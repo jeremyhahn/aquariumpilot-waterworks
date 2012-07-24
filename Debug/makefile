@@ -9,9 +9,11 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/subdir.mk
+-include lib/subdir.mk
 -include arduinolib/SPI/subdir.mk
 -include arduinolib/Ethernet/utility/subdir.mk
 -include arduinolib/Ethernet/subdir.mk
+-include arduinolib/EEPROM/subdir.mk
 -include subdir.mk
 -include objects.mk
 

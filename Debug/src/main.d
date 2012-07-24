@@ -10,6 +10,7 @@ src/main.d src/main.o: ../src/main.cpp \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/new.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/pins_arduino.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/EEPROM/EEPROM.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/Ethernet.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h \
@@ -19,8 +20,11 @@ src/main.d src/main.o: ../src/main.cpp \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetServer.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h \
-  ../src/OneWire.h ../src/DallasTemperature.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/src/OneWire.h
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h \
+  ../src/IpAddress.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h \
+  ../src/Configuration.h
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
 
@@ -44,6 +48,8 @@ src/main.d src/main.o: ../src/main.cpp \
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h:
 
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/EEPROM/EEPROM.h:
+
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/Ethernet.h:
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h:
@@ -62,8 +68,12 @@ src/main.d src/main.o: ../src/main.cpp \
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h:
 
-../src/OneWire.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h:
 
-../src/DallasTemperature.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h:
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/src/OneWire.h:
+../src/IpAddress.h:
+
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h:
+
+../src/Configuration.h:

@@ -1,7 +1,7 @@
 arduinolib/Ethernet/Ethernet.d arduinolib/Ethernet/Ethernet.o:  \
  ../arduinolib/Ethernet/Ethernet.cpp \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/Ethernet/utility/w5100.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/SPI/SPI.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/utility/w5100.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h \
@@ -25,9 +25,9 @@ arduinolib/Ethernet/Ethernet.d arduinolib/Ethernet/Ethernet.o:  \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Udp.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/Ethernet/utility/w5100.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/utility/w5100.h:
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/SPI/SPI.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h:
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
 

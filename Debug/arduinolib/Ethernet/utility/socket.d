@@ -1,7 +1,7 @@
 arduinolib/Ethernet/utility/socket.d arduinolib/Ethernet/utility/socket.o:  \
  ../arduinolib/Ethernet/utility/socket.cpp \
   ../arduinolib/Ethernet/utility/w5100.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/SPI/SPI.h \
+  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h \
@@ -16,7 +16,7 @@ arduinolib/Ethernet/utility/socket.d arduinolib/Ethernet/utility/socket.o:  \
 
 ../arduinolib/Ethernet/utility/w5100.h:
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterstation/arduinolib/SPI/SPI.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h:
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
 
