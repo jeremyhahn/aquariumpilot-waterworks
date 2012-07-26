@@ -4,19 +4,29 @@
 #include "Ethernet.h"
 #include "OneWire.h"
 #include "DallasTemperature.h"
-#include "IpAddress.h"
 #include "SimpleTimer.h"
+#include "IpAddress.h"
+#include "Netmask.h"
+#include "Gateway.h"
 #include "Configuration.h"
+
+//
+// TODO: Implement SMTP
+//
+// http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1235534880/15
+//
 
 extern int  __bss_end;
 extern int  *__brkval;
 extern void startWaterChange(int gallons, int cycle, boolean override);
+extern void startAutoWaterChange();
+extern void sendNotification(String body);
 
 // REST server - url buffer size
 #define BUFSIZE 255
 
 // REST server - API key required to communicate with the web service
-String apiKey = "WW123";
+String apiKey = "ABC123";
 
 // Switch debouncing
 long debounceDelay = 50;                  // the debounce time; increase if the output flickers
@@ -50,6 +60,7 @@ int wcDrainTimerId, wcFillTimerId, wcDailyTimerId;
 int wcTotalGallons = 0;            	   // Total number of gallons the water change session is responsible for replenishing
 int wcCycle = 0;                   	   // Which iteration in the session; 1 gallon of water is changed per cycle. ie., If 5 gallons is requested, 5 cycles will take place
 boolean waterChangeInProgress = false; // Water change state tracking
+int maintenanceInProgress = false;
 
 // Dallas temperature sensor
 #define ONE_WIRE_BUS 38
@@ -58,14 +69,21 @@ DallasTemperature sensors(&oneWire);
 DeviceAddress reservoirTemp = { 0x28, 0xC5, 0x05, 0x07, 0x04, 0x00, 0x00, 0xA0 };
 
 byte mac[] = { 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAF }; // AC
+byte mailServer[] = { 172, 16, 201, 2 };
 IpAddress ipAddress;
-EthernetServer server(80);
-EthernetClient client;
+Netmask netmask;
+Gateway gateway;
+EthernetServer httpServer(80);
+EthernetClient httpClient;
+EthernetClient smtpClient;
+
+String lastError;
 
 // Loads the application configs from EEPROM
 Configuration config;
 
 int main(void) {
+
 	init();
 
 	setup();
@@ -78,43 +96,66 @@ int main(void) {
 
 void setup() {
 
+	//for(int i = 0; i < 512; i++)
+	//	EEPROM.write(i, 0);
+
+	//ipAddress.set(192, 168, 11, 51);
+	//netmask.set(255, 255, 255, 0);
+	//gateway.set(192, 168, 11, 1);
+
 	Ethernet.begin(mac, ipAddress.getBytes());
-	server.begin();
+	httpServer.begin();
 
 	sensors.begin();
 
+	pinMode(outlet1, OUTPUT);
+	pinMode(outlet2, OUTPUT);
+	pinMode(outlet3, OUTPUT);
+	pinMode(outlet4, OUTPUT);
+	pinMode(outlet5, OUTPUT);
+	pinMode(outlet6, OUTPUT);
+	pinMode(outlet7, OUTPUT);
+	pinMode(outlet8, OUTPUT);
+	pinMode(rodiAquariumSolenoid, OUTPUT);
+	pinMode(rodiReservoirSolenoid, OUTPUT);
+	pinMode(aquariumDrainSolenoid, OUTPUT);
+
 	pinMode(upperFloatValve, INPUT);
 	pinMode(lowerFloatValve, INPUT);
+
+	if(config.isAutoWaterChangesEnabled()) {
+		wcDailyTimerId = timer.setInterval(config.getWaterChangeMillis(), startAutoWaterChange);
+	}
 }
 
 void sendHtmlHeader() {
 
-	client.println("<h5>AquariumPilot v1.0</h5>");
+	httpClient.println("<h5>AquariumPilot v1.0</h5>");
 }
 
 void send404() {
 
-	client.println("HTTP/1.1 404 Not Found");
-	client.println("Content-Type: text/html");
-	client.println("X-Powered-By: AquariumPilot v1.0");
-	client.println();
+	httpClient.println("HTTP/1.1 404 Not Found");
+	httpClient.println("Content-Type: text/html");
+	httpClient.println("X-Powered-By: AquariumPilot v1.0");
+	httpClient.println();
 
 	sendHtmlHeader();
-	client.println("<h1>Not Found</h1>");
+	httpClient.println("<h1>Not Found</h1>");
 }
 
 void reply(int statusCode, String statusMessage, String body) {
 
-	client.print("HTTP/1.1 ");
-	client.print(statusCode);
-	client.print(" ");
-	client.print(statusMessage);
-	client.println("Content-Type: text/html");
-	client.println("X-Powered-By: AquariumPilot v1.0");
-	client.println();
+	httpClient.print("HTTP/1.1 ");
+	httpClient.print(statusCode);
+	httpClient.print(" ");
+	httpClient.print(statusMessage);
+	httpClient.println("Content-Type: text/html");
+	httpClient.println("X-Powered-By: AquariumPilot v1.0");
+	httpClient.println();
 
 	sendHtmlHeader();
-	client.println(body);
+	httpClient.println(body);
 }
 
 void checkUpperReservoirLevel() {
@@ -140,10 +181,13 @@ void checkUpperReservoirLevel() {
 
 		// Turn off the RO/DI solenoid valve
 		digitalWrite(rodiReservoirSolenoid, LOW);
+		sendNotification("Upper float valve triggered. RO/DI valve is now off.");
 
 		// Turn on the powerhead if auto circulate is enabled
-		if (config.isAutoCirculationEnabled())
+		if (config.isAutoCirculationEnabled()) {
 			digitalWrite(config.getReservoirPowerheadOutlet(), HIGH);
+			sendNotification("Upper float valve triggered. Auto-circulation is enabled. The powerhead is now on.");
+		}
 	}
 
 	// save the reading.  Next time through the loop, it'll be the upperFloatValveLastState
@@ -172,8 +216,10 @@ void checkLowerReservoirLevel() {
 	if (lowerFloatValveState == HIGH) {
 
 		// Turn on the RO/DI solenoid valve if auto fill is enabled
-		if (config.isAutoFillReservoirEnabled())
+		if (config.isAutoFillReservoirEnabled()) {
 			digitalWrite(rodiReservoirSolenoid, HIGH);
+			sendNotification("Lower float valve triggered. Autofill is enabled. RO/DI valve is now on.");
+		}
 
 		// Turn off the powerhead
 		digitalWrite(config.getReservoirPowerheadOutlet(), LOW);
@@ -196,9 +242,18 @@ void updateWaterChangeCounters() {
 		}
 
 		// Water change complete
+		int gallons = wcTotalGallons;
+
 		waterChangeInProgress = false;
 		wcCycle = 0;
 		wcTotalGallons = 0;
+
+		String body = String("Your water change of ");
+		body.concat(gallons);
+		body.concat(" ");
+		body.concat(gallons > 1 ? "gallons" : "gallon");
+		body.concat(" is now complete.");
+		sendNotification(body);
 	}
 }
 
@@ -207,6 +262,7 @@ void turnOffAquariumDrain() {
 	digitalWrite(aquariumDrainSolenoid, LOW);
 	timer.disable(wcDrainTimerId);
 	updateWaterChangeCounters();
+	sendNotification("Aquarium drain is now off.");
 }
 
 void turnOffAquariumFillPump() {
@@ -214,13 +270,24 @@ void turnOffAquariumFillPump() {
 	digitalWrite(config.getAquariumFillPumpOutlet(), LOW);
 	timer.disable(wcFillTimerId);
 	updateWaterChangeCounters();
+	sendNotification("Aquarium fill pump is now off.");
 }
 
 void startWaterChange(int gallons, int cycle, boolean override) {
 
+	if(maintenanceInProgress) return;
+
 	if(waterChangeInProgress && !override) {
 		return;
 	}
+
+	String body = String("Starting water change. Gallons: ");
+	body.concat(gallons);
+	body.concat(", Cycle: ");
+	body.concat(cycle);
+	//body.concat(", Override: ");
+	//body.concat(override);
+	sendNotification(body);
 
 	waterChangeInProgress = true;
 	wcTotalGallons = gallons;
@@ -233,6 +300,12 @@ void startWaterChange(int gallons, int cycle, boolean override) {
 	digitalWrite(config.getAquariumFillPumpOutlet(), HIGH);
 }
 
+void startAutoWaterChange() {
+
+	if(maintenanceInProgress) return;
+	startWaterChange(1, 1, false);
+}
+
 void stopWaterChange() {
 
 	digitalWrite(aquariumDrainSolenoid, LOW);
@@ -240,6 +313,39 @@ void stopWaterChange() {
 
 	if(wcDrainTimerId) timer.disable(wcDrainTimerId);
 	if(wcFillTimerId) timer.disable(wcFillTimerId);
+}
+
+void sendNotification(String body) {
+
+	int wait = 1000;
+
+	if (smtpClient.connect(mailServer, 25)) {
+
+		smtpClient.println("HELO arduino.makeabyte.com");
+		delay(wait);
+
+		smtpClient.println("MAIL FROM:<jeremy.hahn@makeabyte.com>");
+		delay(wait);
+
+		smtpClient.println("RCPT TO:<jeremy.hahn@makeabyte.com>");
+		delay(wait);
+
+		smtpClient.println("DATA");
+		delay(wait);
+
+		smtpClient.println("Subject:[AquariumPilot] Water Change Notification");
+		smtpClient.println("");
+
+		smtpClient.println(body);
+		smtpClient.println("\r\n\r\n- AquariumPilot");
+		smtpClient.println(".");
+
+		smtpClient.println("QUIT");
+		delay(wait);
+
+		smtpClient.println();
+		smtpClient.stop();
+	}
 }
 
 int availableMemory() {
@@ -257,6 +363,10 @@ void factoryReset() {
 
 	ipAddress.erase();
 	config.erase();
+
+	// Erase EERPOM
+	//for(int i = 0; i < 512; i++)
+	//    EEPROM.write(i, 0);
 }
 
 void loop() {
@@ -264,30 +374,30 @@ void loop() {
 	timer.run();
 
 	// Check the position of the float valve located at the top of the reservoir
-	checkUpperReservoirLevel();
+	//checkUpperReservoirLevel();
 
-	client = server.available();
+	httpClient = httpServer.available();
 
 	char clientline[BUFSIZE];
 	int index = 0;
 
-	if (client) {
+	if (httpClient) {
 
 		//reset input buffer
 		index = 0;
 
-		while (client.connected()) {
+		while (httpClient.connected()) {
 
-			if (client.available()) {
+			if (httpClient.available()) {
 
-				char c = client.read();
+				char c = httpClient.read();
 
 				if (c != '\n' && c != '\r' && index < BUFSIZE) {
 					clientline[index++] = c;
 					continue;
 				}
 
-				client.flush();
+				httpClient.flush();
 
 				String urlString = String(clientline);
 				String op = urlString.substring(0, urlString.indexOf(' '));
@@ -308,15 +418,17 @@ void loop() {
 				String jsonOut = String();
 				int address = atoi(param1);
 
-				if (param1 != NULL) {  // Pin / address / id
+				if (param1 != NULL) {  // Pin / id
 
 					//
 					// REST resources that use the "pin" parameter but no value....
 					//
 
 					if (strncmp(resource, "waterchange", 11) == 0) {
-						startWaterChange(atoi(param1), 1, false);  // says pin, but its really the value. 1 = number of gallons to change
-						jsonOut = "tRu";
+						startWaterChange(atoi(param1), 1, false);  // says address, but its really the value. 1 = number of gallons to change
+					}
+					else if (strncmp(resource, "maintenance", 11) == 0) {
+						maintenanceInProgress = atoi(param1);
 					}
 
 					//
@@ -345,16 +457,16 @@ void loop() {
 						}
 
 						//  return status
-						client.println("HTTP/1.1 200 OK");
-						client.println("Content-Type: text/html");
-						client.println("X-Powered-By: AquariumPilot v1.0");
-						client.println();
+						httpClient.println("HTTP/1.1 200 OK");
+						httpClient.println("Content-Type: text/html");
+						httpClient.println("X-Powered-By: AquariumPilot v1.0");
+						httpClient.println();
 						break;
 					}
 					else { // No value specified -- read operation
 
 						if (strncmp(resource, "eeprom", 6) == 0) {
-							sprintf(outValue, "%s", EEPROM.read(address));
+							sprintf(outValue, "%d", EEPROM.read(address));
 						}
 						else if (strncmp(resource, "temp", 4) == 0) {
 
@@ -391,12 +503,12 @@ void loop() {
 						jsonOut += "\"}";
 
 						//  return value with wildcarded Cross-origin policy
-						client.println("HTTP/1.1 200 OK");
-						client.println("Content-Type: text/html");
-						client.println("Access-Control-Allow-Origin: *");
-						client.println("X-Powered-By: AquariumPilot v1.0");
-						client.println();
-						client.println(jsonOut);
+						httpClient.println("HTTP/1.1 200 OK");
+						httpClient.println("Content-Type: text/html");
+						httpClient.println("Access-Control-Allow-Origin: *");
+						httpClient.println("X-Powered-By: AquariumPilot v1.0");
+						httpClient.println();
+						httpClient.println(jsonOut);
 						break;
 					}
 				}
@@ -410,8 +522,11 @@ void loop() {
 
 					jsonOut += "{";
 						jsonOut += "\"ipAddress\":\"" + ipAddress.toString() + "\", ";
+						jsonOut += "\"netmask\":\"" + netmask.toString() + "\", ";
+						jsonOut += "\"gateway\":\"" + gateway.toString() + "\", ";
 						jsonOut += "\"availableMemory\":\"" + String(availableMemory()) + "\", ";
-						jsonOut += "\"uptime\":\"" + String(millis()) + "\" ";
+						jsonOut += "\"uptime\":\"" + String(millis()) + "\", ";
+						jsonOut += "\"lastError\":\"" + lastError + "\" ";
 					jsonOut += "}";
 				}
 				else if (strncmp(resource, "status", 6) == 0) {
@@ -444,7 +559,10 @@ void loop() {
 						jsonOut += "\"wcDrainTimerEnabled\":\"" + String(timer.isEnabled(wcDrainTimerId)) + "\", ";
 						jsonOut += "\"wcFillTimerId\":\"" +  String(wcFillTimerId) + "\", ";
 						jsonOut += "\"wcFillTimerEnabled\":\"" + String(timer.isEnabled(wcFillTimerId)) + "\", ";
-						jsonOut += "\"numTimers\":\"" + String(timer.getNumTimers()) + "\" ";
+						jsonOut += "\"wcDailyTimerId\":\"" +  String(wcDailyTimerId) + "\", ";
+						jsonOut += "\"wcDailyTimerEnabled\":\"" + String(timer.isEnabled(wcDailyTimerId)) + "\", ";
+						jsonOut += "\"activeTimers\":\"" + String(timer.getNumTimers()) + "\", ";
+						jsonOut += "\"maintenanceInProgress\":\"" + String(maintenanceInProgress) + "\" ";
 					jsonOut += "}";
 				}
 				else if (strncmp(resource, "pinout", 6) == 0) {
@@ -468,13 +586,14 @@ void loop() {
 				else if (strncmp(resource, "config", 6) == 0) {
 
 					jsonOut += "{";
-						jsonOut += "\"dailyWaterChangesEnabled\":\"" + String(config.isAutoFillReservoirEnabled()) + "\", ";
+						jsonOut += "\"autoWaterChangesEnabled\":\"" + String(config.isAutoWaterChangesEnabled()) + "\", ";
 						jsonOut += "\"autoFillReservoirEnabled\":\"" + String(config.isAutoFillReservoirEnabled()) + "\", ";
 						jsonOut += "\"autoCirculationEnabled\":\"" + String(config.isAutoCirculationEnabled()) + "\", ";
 						jsonOut += "\"reservoirPowerheadOutlet\":\"" + String(config.getReservoirPowerheadOutlet()) + "\", ";
 						jsonOut += "\"aquariumFillPumpOutlet\":\"" + String(config.getAquariumFillPumpOutlet()) + "\", ";
 						jsonOut += "\"drainMillisPerGallon\":\"" + String(config.getDrainMillisPerGallon()) + "\", ";
-						jsonOut += "\"_fillMillisPerGallon\":\"" + String(config.getFillMillisPerGallon()) + "\" ";
+						jsonOut += "\"fillMillisPerGallon\":\"" + String(config.getFillMillisPerGallon()) + "\", ";
+						jsonOut += "\"waterChangeMillis\":\"" + String(config.getWaterChangeMillis()) + "\" ";
 					jsonOut += "}";
 				}
 				else if (strncmp(resource, "reset", 12) == 0) {
@@ -484,12 +603,12 @@ void loop() {
 					send404();
 				}
 
-				client.println("HTTP/1.1 200 OK");
-				client.println("Content-Type: text/html");
-				client.println("Access-Control-Allow-Origin: *");
-				client.println("X-Powered-By: AquariumPilot v1.0");
-				client.println();
-				client.println(jsonOut);
+				httpClient.println("HTTP/1.1 200 OK");
+				httpClient.println("Content-Type: text/html");
+				httpClient.println("Access-Control-Allow-Origin: *");
+				httpClient.println("X-Powered-By: AquariumPilot v1.0");
+				httpClient.println();
+				httpClient.println(jsonOut);
 
 				break;
 			}
@@ -499,9 +618,9 @@ void loop() {
 		delay(100);
 
 		// close the connection:
-		client.stop();
+		httpClient.stop();
 	}
 
 	// Check the position of the float valve located at the bottom of the reservoir
-	checkLowerReservoirLevel();
+	//checkLowerReservoirLevel();
 }

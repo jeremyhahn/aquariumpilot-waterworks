@@ -22,8 +22,8 @@ src/main.d src/main.o: ../src/main.cpp \
   /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h \
-  ../src/IpAddress.h \
   /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h \
+  ../src/IpAddress.h ../src/Netmask.h ../src/Gateway.h \
   ../src/Configuration.h
 
 /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
@@ -72,8 +72,12 @@ src/main.d src/main.o: ../src/main.cpp \
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h:
 
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h:
+
 ../src/IpAddress.h:
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h:
+../src/Netmask.h:
+
+../src/Gateway.h:
 
 ../src/Configuration.h:

@@ -18,26 +18,26 @@
  */
 IpAddress::IpAddress() {
 
-	this->_octet1 = EEPROM.read(0);
+	this->_ip_octet1 = EEPROM.read(0);
 
-	if(this->_octet1 == 255 || this->_octet1 == 0 ) {
+	if(this->_ip_octet1 == 255 || this->_ip_octet1 == 0 ) {
 
-		this->_octet1 = 192;
-		this->_octet2 = 168;
-		this->_octet3 = 11;
-		this->_octet4 = 241;
+		this->_ip_octet1 = 192;
+		this->_ip_octet2 = 168;
+		this->_ip_octet3 = 11;
+		this->_ip_octet4 = 241;
 	}
 	else {
 
-		this->_octet2 = EEPROM.read(1);
-		this->_octet3 = EEPROM.read(2);
-		this->_octet4 = EEPROM.read(3);
+		this->_ip_octet2 = EEPROM.read(1);
+		this->_ip_octet3 = EEPROM.read(2);
+		this->_ip_octet4 = EEPROM.read(3);
 	}
 
-	this->_ip[0] = _octet1;
-	this->_ip[1] = _octet2;
-	this->_ip[2] = _octet3;
-	this->_ip[3] = _octet4;
+	this->_ip[0] = _ip_octet1;
+	this->_ip[1] = _ip_octet2;
+	this->_ip[2] = _ip_octet3;
+	this->_ip[3] = _ip_octet4;
 }
 
 /**
@@ -58,15 +58,15 @@ IpAddress::~IpAddress() {
  */
 void IpAddress::set(byte octet1, byte octet2, byte octet3, byte octet4) {
 
-	this->_octet1 = octet1;
-	this->_octet2 = octet2;
-	this->_octet3 = octet3;
-	this->_octet4 = octet4;
+	this->_ip_octet1 = octet1;
+	this->_ip_octet2 = octet2;
+	this->_ip_octet3 = octet3;
+	this->_ip_octet4 = octet4;
 
-	this->_ip[0] = this->_octet1;
-	this->_ip[1] = this->_octet2;
-	this->_ip[2] = this->_octet3;
-	this->_ip[3] = this->_octet4;
+	this->_ip[0] = this->_ip_octet1;
+	this->_ip[1] = this->_ip_octet2;
+	this->_ip[2] = this->_ip_octet3;
+	this->_ip[3] = this->_ip_octet4;
 
 	EEPROM.write(0, octet1);
 	EEPROM.write(1, octet2);
@@ -81,10 +81,10 @@ void IpAddress::set(byte octet1, byte octet2, byte octet3, byte octet4) {
  */
 byte* IpAddress::getBytes() {
 
-	this->_ip[0] = this->_octet1;
-	this->_ip[1] = this->_octet2;
-	this->_ip[2] = this->_octet3;
-	this->_ip[3] = this->_octet4;
+	this->_ip[0] = this->_ip_octet1;
+	this->_ip[1] = this->_ip_octet2;
+	this->_ip[2] = this->_ip_octet3;
+	this->_ip[3] = this->_ip_octet4;
 	return (&this->_ip[0]);
 }
 
@@ -108,13 +108,13 @@ void IpAddress::erase() {
  */
 String IpAddress::toString() {
 
-	String s = String(this->_octet1);
+	String s = String(this->_ip_octet1);
 	s.concat(".");
-	s.concat(this->_octet2);
+	s.concat(this->_ip_octet2);
 	s.concat(".");
-	s.concat(this->_octet3);
+	s.concat(this->_ip_octet3);
 	s.concat(".");
-	s.concat(this->_octet4);
+	s.concat(this->_ip_octet4);
 
 	return s;
 }

@@ -5,17 +5,23 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Configuration.cpp \
+../src/Gateway.cpp \
 ../src/IpAddress.cpp \
+../src/Netmask.cpp \
 ../src/main.cpp 
 
 OBJS += \
 ./src/Configuration.o \
+./src/Gateway.o \
 ./src/IpAddress.o \
+./src/Netmask.o \
 ./src/main.o 
 
 CPP_DEPS += \
 ./src/Configuration.d \
+./src/Gateway.d \
 ./src/IpAddress.d \
+./src/Netmask.d \
 ./src/main.d 
 
 
