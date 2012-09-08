@@ -31,13 +31,16 @@
 							</tool>
 							<tool command="avr-g++" id="de.innot.avreclipse.tool.compiler.winavr.app.debug.1896451969" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.debug">
 								<option id="de.innot.avreclipse.compiler.option.debug.level.1802783236" name="Generate Debugging Info" superClass="de.innot.avreclipse.compiler.option.debug.level"/>
-								<option id="de.innot.avreclipse.compiler.option.optimize.1866906872" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize"/>
+								<option id="de.innot.avreclipse.compiler.option.optimize.1866906872" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" value="de.innot.avreclipse.compiler.optimize.none" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.incpath.1398691289" name="Include Paths (-I)" superClass="de.innot.avreclipse.compiler.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore-1.0/src}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/cores/arduino"/>
+									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/variants/mega"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Ethernet/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Ethernet}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Wire/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib}&quot;"/>
@@ -46,17 +49,25 @@
 									<listOptionValue builtIn="false" value="ARDUINO=100"/>
 									<listOptionValue builtIn="false" value="DEBUG=true"/>
 								</option>
+								<option id="de.innot.avreclipse.compiler.option.optimize.packstruct.1791992462" name="Pack structs (-fpack-struct)" superClass="de.innot.avreclipse.compiler.option.optimize.packstruct" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.compiler.option.optimize.shortenums.198583368" name="Short enums (-fshort-enums)" superClass="de.innot.avreclipse.compiler.option.optimize.shortenums" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.compiler.option.optimize.other.1285158493" name="Other Optimization Flags" superClass="de.innot.avreclipse.compiler.option.optimize.other" value="-ffunction-sections -fdata-sections" valueType="string"/>
+								<option id="de.innot.avreclipse.compiler.option.language.ubitfields.491531688" name="bitfields are unsigned (-funsigned-bitfields)" superClass="de.innot.avreclipse.compiler.option.language.ubitfields" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.compiler.option.language.uchar.1744978113" name="char is unsigned (-funsigned-char)" superClass="de.innot.avreclipse.compiler.option.language.uchar" value="false" valueType="boolean"/>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.1899427497" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
 							<tool id="de.innot.avreclipse.tool.cppcompiler.app.debug.1539017871" name="AVR C++ Compiler" superClass="de.innot.avreclipse.tool.cppcompiler.app.debug">
 								<option id="de.innot.avreclipse.cppcompiler.option.debug.level.1275231838" name="Generate Debugging Info" superClass="de.innot.avreclipse.cppcompiler.option.debug.level"/>
-								<option id="de.innot.avreclipse.cppcompiler.option.optimize.2041519223" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.optimize.2041519223" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize" value="de.innot.avreclipse.cppcompiler.optimize.none" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.cppcompiler.option.incpath.650617063" name="Include Paths (-I)" superClass="de.innot.avreclipse.cppcompiler.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore-1.0/src}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/cores/arduino"/>
+									<listOptionValue builtIn="false" value="/usr/share/arduino/hardware/arduino/variants/mega"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Ethernet/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Ethernet}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Wire/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduinolib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib}&quot;"/>
@@ -66,15 +77,22 @@
 									<listOptionValue builtIn="false" value="ARDUINO=100"/>
 									<listOptionValue builtIn="false" value="DEBUG=true"/>
 								</option>
+								<option id="de.innot.avreclipse.cppcompiler.option.optimize.shortenums.931525690" name="Short enums (-fshort-enums)" superClass="de.innot.avreclipse.cppcompiler.option.optimize.shortenums" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.optimize.packstruct.1163882432" name="Pack structs (-fpack-struct)" superClass="de.innot.avreclipse.cppcompiler.option.optimize.packstruct" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.optimize.other.1723803586" name="Other Optimization Flags" superClass="de.innot.avreclipse.cppcompiler.option.optimize.other" value="-ffunction-sections -fdata-sections" valueType="string"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.language.ubitfields.2106548256" name="bitfields are unsigned (-funsigned-bitfields)" superClass="de.innot.avreclipse.cppcompiler.option.language.ubitfields" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.language.uchar.1250375928" name="char is unsigned (-funsigned-char)" superClass="de.innot.avreclipse.cppcompiler.option.language.uchar" value="false" valueType="boolean"/>
 								<inputType id="de.innot.avreclipse.cppcompiler.input.1365425772" superClass="de.innot.avreclipse.cppcompiler.input"/>
 							</tool>
 							<tool id="de.innot.avreclipse.tool.linker.winavr.app.debug.752134318" name="AVR C Linker" superClass="de.innot.avreclipse.tool.linker.winavr.app.debug"/>
-							<tool id="de.innot.avreclipse.tool.cpplinker.app.debug.526800181" name="AVR C++ Linker" superClass="de.innot.avreclipse.tool.cpplinker.app.debug">
+							<tool command="avr-gcc" commandLinePattern="${COMMAND} --cref -s -Os ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS} -lm ${FLAGS}" id="de.innot.avreclipse.tool.cpplinker.app.debug.526800181" name="AVR C++ Linker" superClass="de.innot.avreclipse.tool.cpplinker.app.debug">
 								<option id="de.innot.avreclipse.cpplinker.option.libs.2078483044" name="Libraries (-l)" superClass="de.innot.avreclipse.cpplinker.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="ArduinoCore-1.0"/>
+									<listOptionValue builtIn="false" value="ArduinoCore-1.0.1"/>
+									<listOptionValue builtIn="false" value="m"/>
 								</option>
 								<option id="de.innot.avreclipse.cpplinker.option.libpath.456191420" name="Libraries Path (-L)" superClass="de.innot.avreclipse.cpplinker.option.libpath" valueType="stringList">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore-1.0/Mega2560}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore-1.0.1/Mega2560}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/share/arduino-1.0.1/hardware/arduino/variants/mega"/>
 								</option>
 								<option id="de.innot.avreclipse.cpplinker.option.otherlink.1642464293" name="(-Xlinker) Options" superClass="de.innot.avreclipse.cpplinker.option.otherlink" valueType="stringList">
 									<listOptionValue builtIn="false" value="-Wl,--gc-sections"/>

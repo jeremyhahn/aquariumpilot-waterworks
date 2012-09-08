@@ -31,6 +31,8 @@ SIZEDUMMY :=
 SUBDIRS := \
 src \
 lib \
+arduinolib/Wire/utility \
+arduinolib/Wire \
 arduinolib/SPI \
 arduinolib/Ethernet/utility \
 arduinolib/Ethernet \

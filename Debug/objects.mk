@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lArduinoCore-1.0
+LIBS := -lArduinoCore-1.0.1 -lm
 

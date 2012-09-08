@@ -1,6 +1,5 @@
 /**
- * Responsible for managing the IP address of the Arduino
- * in EEPROM.
+ * All Rights Reserved
  *
  * @author Jeremy Hahn
  * @copyright (c) 2012 Make A byte, inc
@@ -34,10 +33,18 @@ IpAddress::IpAddress() {
 		this->_ip_octet4 = EEPROM.read(3);
 	}
 
-	this->_ip[0] = _ip_octet1;
-	this->_ip[1] = _ip_octet2;
-	this->_ip[2] = _ip_octet3;
-	this->_ip[3] = _ip_octet4;
+	this->_ip_bytes[0] = _ip_octet1;
+	this->_ip_bytes[1] = _ip_octet2;
+	this->_ip_bytes[2] = _ip_octet3;
+	this->_ip_bytes[3] = _ip_octet4;
+
+	this->_ip_string = String(this->_ip_octet1);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet2);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet3);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet4);
 }
 
 /**
@@ -63,10 +70,18 @@ void IpAddress::set(byte octet1, byte octet2, byte octet3, byte octet4) {
 	this->_ip_octet3 = octet3;
 	this->_ip_octet4 = octet4;
 
-	this->_ip[0] = this->_ip_octet1;
-	this->_ip[1] = this->_ip_octet2;
-	this->_ip[2] = this->_ip_octet3;
-	this->_ip[3] = this->_ip_octet4;
+	this->_ip_bytes[0] = this->_ip_octet1;
+	this->_ip_bytes[1] = this->_ip_octet2;
+	this->_ip_bytes[2] = this->_ip_octet3;
+	this->_ip_bytes[3] = this->_ip_octet4;
+
+	this->_ip_string = String(this->_ip_octet1);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet2);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet3);
+	this->_ip_string.concat(".");
+	this->_ip_string.concat(this->_ip_octet4);
 
 	EEPROM.write(0, octet1);
 	EEPROM.write(1, octet2);
@@ -81,11 +96,11 @@ void IpAddress::set(byte octet1, byte octet2, byte octet3, byte octet4) {
  */
 byte* IpAddress::getBytes() {
 
-	this->_ip[0] = this->_ip_octet1;
-	this->_ip[1] = this->_ip_octet2;
-	this->_ip[2] = this->_ip_octet3;
-	this->_ip[3] = this->_ip_octet4;
-	return (&this->_ip[0]);
+	this->_ip_bytes[0] = this->_ip_octet1;
+	this->_ip_bytes[1] = this->_ip_octet2;
+	this->_ip_bytes[2] = this->_ip_octet3;
+	this->_ip_bytes[3] = this->_ip_octet4;
+	return (&this->_ip_bytes[0]);
 }
 
 /**
@@ -108,13 +123,5 @@ void IpAddress::erase() {
  */
 String IpAddress::toString() {
 
-	String s = String(this->_ip_octet1);
-	s.concat(".");
-	s.concat(this->_ip_octet2);
-	s.concat(".");
-	s.concat(this->_ip_octet3);
-	s.concat(".");
-	s.concat(this->_ip_octet4);
-
-	return s;
+	return this->_ip_string;
 }

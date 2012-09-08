@@ -1,50 +1,54 @@
 src/main.d src/main.o: ../src/main.cpp \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WString.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/HardwareSerial.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/new.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/pins_arduino.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/EEPROM/EEPROM.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/Ethernet.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetClient.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Client.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetServer.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h \
-  ../src/IpAddress.h ../src/Netmask.h ../src/Gateway.h \
-  ../src/Configuration.h
+ /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/binary.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/WString.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/HardwareSerial.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Stream.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Print.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Printable.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/new.h \
+ /usr/share/arduino/hardware/arduino/variants/mega/pins_arduino.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/EEPROM/EEPROM.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/Ethernet.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Printable.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetClient.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Print.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Client.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetServer.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Server.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Timer.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Event.h \
+ ../src/IpAddress.h ../src/Netmask.h ../src/Gateway.h \
+ ../src/Configuration.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Wire/Wire.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Stream.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Chronodot.h
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/binary.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WString.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/WString.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/HardwareSerial.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/HardwareSerial.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Stream.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Print.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Printable.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/new.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/new.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/pins_arduino.h:
+/usr/share/arduino/hardware/arduino/variants/mega/pins_arduino.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h:
 
@@ -52,27 +56,29 @@ src/main.d src/main.o: ../src/main.cpp \
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/Ethernet.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Printable.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetClient.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Print.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Client.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Client.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/EthernetServer.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Server.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/OneWire.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/DallasTemperature.h:
 
-/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/SimpleTimer.h:
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Timer.h:
+
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Event.h:
 
 ../src/IpAddress.h:
 
@@ -81,3 +87,9 @@ src/main.d src/main.o: ../src/main.cpp \
 ../src/Gateway.h:
 
 ../src/Configuration.h:
+
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Wire/Wire.h:
+
+/usr/share/arduino/hardware/arduino/cores/arduino/Stream.h:
+
+/storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/lib/Chronodot.h:

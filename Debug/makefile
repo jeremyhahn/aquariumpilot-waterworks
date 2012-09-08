@@ -10,6 +10,8 @@ RM := rm -rf
 -include sources.mk
 -include src/subdir.mk
 -include lib/subdir.mk
+-include arduinolib/Wire/utility/subdir.mk
+-include arduinolib/Wire/subdir.mk
 -include arduinolib/SPI/subdir.mk
 -include arduinolib/Ethernet/utility/subdir.mk
 -include arduinolib/Ethernet/subdir.mk
@@ -64,7 +66,7 @@ all: aquariumpilot-waterworks.elf secondary-outputs
 aquariumpilot-waterworks.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-g++ -Wl,-Map,aquariumpilot-waterworks.map,--cref -L"/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/Mega2560" -Xlinker-Wl,--gc-sections -mmcu=atmega2560 -o "aquariumpilot-waterworks.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc --cref -s -Os -o"aquariumpilot-waterworks.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -Wl,-Map,aquariumpilot-waterworks.map,--cref -L"/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0.1/Mega2560" -L/usr/share/arduino-1.0.1/hardware/arduino/variants/mega -Xlinker-Wl,--gc-sections -mmcu=atmega2560
 	@echo 'Finished building target: $@'
 	@echo ' '
 

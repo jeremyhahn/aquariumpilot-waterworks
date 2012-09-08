@@ -17,17 +17,8 @@ class IpAddress {
        byte _ip_octet2;
        byte _ip_octet3;
        byte _ip_octet4;
-       byte _ip[4];
-       byte _netmask_octet1;
-       byte _netmask_octet2;
-       byte _netmask_octet3;
-       byte _netmask_octet4;
-       byte _netmask[4];
-       byte _gateway_octet1;
-       byte _gateway_octet2;
-       byte _gateway_octet3;
-       byte _gateway_octet4;
-       byte _gateway[4];
+       byte _ip_bytes[4];
+       String _ip_string;
 
     public:
         IpAddress();

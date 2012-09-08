@@ -1,76 +1,76 @@
-arduinolib/Ethernet/Ethernet.d arduinolib/Ethernet/Ethernet.o:  \
+arduinolib/Ethernet/Ethernet.d arduinolib/Ethernet/Ethernet.o: \
  ../arduinolib/Ethernet/Ethernet.cpp \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/utility/w5100.h \
-  /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WString.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/HardwareSerial.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/new.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/pins_arduino.h \
-  ../arduinolib/Ethernet/Ethernet.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h \
-  ../arduinolib/Ethernet/EthernetClient.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Client.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h \
-  ../arduinolib/Ethernet/EthernetServer.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h \
-  ../arduinolib/Ethernet/Dhcp.h ../arduinolib/Ethernet/EthernetUdp.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Udp.h \
-  /storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/utility/w5100.h \
+ /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/binary.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/WString.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/HardwareSerial.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Stream.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Print.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Printable.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/new.h \
+ /usr/share/arduino/hardware/arduino/variants/mega/pins_arduino.h \
+ ../arduinolib/Ethernet/Ethernet.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Printable.h \
+ ../arduinolib/Ethernet/EthernetClient.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Print.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Client.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h \
+ ../arduinolib/Ethernet/EthernetServer.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Server.h \
+ ../arduinolib/Ethernet/Dhcp.h ../arduinolib/Ethernet/EthernetUdp.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Udp.h \
+ /usr/share/arduino/hardware/arduino/cores/arduino/Stream.h
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/Ethernet/utility/w5100.h:
 
 /storage/apps/eclipse-avr/workspace/aquariumpilot-waterworks/arduinolib/SPI/SPI.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Arduino.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/binary.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/binary.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WCharacter.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/WString.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/WString.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/HardwareSerial.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/HardwareSerial.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Stream.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Print.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Printable.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/new.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/new.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/pins_arduino.h:
+/usr/share/arduino/hardware/arduino/variants/mega/pins_arduino.h:
 
 ../arduinolib/Ethernet/Ethernet.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Printable.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Printable.h:
 
 ../arduinolib/Ethernet/EthernetClient.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Print.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Print.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Client.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Client.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/IPAddress.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/IPAddress.h:
 
 ../arduinolib/Ethernet/EthernetServer.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Server.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Server.h:
 
 ../arduinolib/Ethernet/Dhcp.h:
 
 ../arduinolib/Ethernet/EthernetUdp.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Udp.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Udp.h:
 
-/storage/apps/eclipse-avr/workspace/ArduinoCore-1.0/src/Stream.h:
+/usr/share/arduino/hardware/arduino/cores/arduino/Stream.h:
