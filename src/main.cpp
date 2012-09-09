@@ -51,7 +51,7 @@ int wcTotalGallons = 0;            	    // Total number of gallons the water cha
 int wcCycle = 0;                   	    // Which iteration in the session; 1 gallon of water is changed per cycle. ie., If 5 gallons is requested, 5 cycles will take place
 int wcLastChangedMonth;				    // The month when the automated water change last took place
 int wcLastChangedDay;				    // The day when the automated water change last took place
-bool maintenanceInProgress = false;    // Maintenance mode state tracking
+bool maintenanceInProgress = true;     // Maintenance mode state tracking
 bool waterChangeInProgress = false;    // Water change state tracking
 bool reservoirFillInProgress = false;  // Reservoir fill state tracking
 bool aquariumDrainInProgress = false;  // Aquarium drain state tracking
@@ -73,7 +73,7 @@ DallasTemperature sensors(&oneWire);
 DeviceAddress reservoirTemp = { 0x28, 0xC5, 0x05, 0x07, 0x04, 0x00, 0x00, 0xA0 };
 DeviceAddress roomTemp = { 0x28, 0x2A, 0x74, 0x28, 0x04, 0x00, 0x00, 0xE7 };
 
-byte mac[] = { 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x1F }; // AC
+byte mac[] = { 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAC }; // prod = AC, dev = 1F
 byte mailServer[] = { 172, 16, 201, 2 };
 IpAddress ipAddress;
 Netmask netmask;
@@ -116,7 +116,6 @@ int main(void) {
 void setup() {
 
 	Serial.begin(115200);
-	Serial.println("Initializing...");
 
 	//int sdcardPin = 4;
 	//int ethernetPin = 53;
@@ -229,7 +228,11 @@ void sendNotification(String subject, String body) {
 		smtpClient.println("DATA");
 		delay(wait);
 
-		smtpClient.print("Subject:[TESTING! AquariumPilot] ");
+		#ifdef DEBUG
+		smtpClient.print("Subject:[AquariumPilot] ");
+		#else
+		smtpClient.print("Subject:[AquariumPilot TESTING!!!] ");
+		#endif
 		smtpClient.println(subject);
 		smtpClient.println("");
 
@@ -608,7 +611,7 @@ void loop() {
 	dateTimeString = dateString + " " + timeString;
 
 	// Automated water changes
-	if(config.isAutoWaterChangesEnabled()) {
+	if(config.isAutoWaterChangesEnabled() && !maintenanceInProgress) {
 
 		bool hoursMatter = now.day() == wcLastChangedDay;
 		bool minutesMatter = now.hour() == config.getAutoWaterChangeHour();
@@ -624,7 +627,7 @@ void loop() {
 	}
 
 	// Automated top off
-	if(config.isAutoTopOffEnabled()) {
+	if(config.isAutoTopOffEnabled() && !maintenanceInProgress) {
 
 		bool hoursMatter = now.day() == topOffLastDay;
 		bool minutesMatter = now.hour() == AUTOTOPOFFHOUR;
