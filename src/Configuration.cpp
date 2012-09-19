@@ -44,6 +44,7 @@ void Configuration::load() {
 	this->_pin_aquariumDrainSolenoid = this->read(EEPROM_AQUARIUMDRAINSOLENOID, DEFAULT_PINOUT_AQUARIUMDRAINSOLENOID);
 	this->_pin_upperFloatValve = this->read(EEPROM_RESERVOIRUPPERFLOATVALVE, DEFAULT_PINOUT_RESERVOIRUPPERFLOATVALVE);
 	this->_pin_lowerFloatValve = this->read(EEPROM_RESERVOIRLOWERFLOATVALVE, DEFAULT_PINOUT_RESERVOIRLOWERFLOATVALVE);
+	this->_onewire = this->read(EEPROM_ONEWIRE, DEFAULT_VALUE_ONEWIRE);
 }
 
 int Configuration::read(int address, uint8_t defaultValue) {
@@ -235,6 +236,14 @@ void Configuration::setPinReservoirLowerFloatValve(int pin) {
 
 int Configuration::getPinReservoirLowerFloatValve() {
 	return this->_pin_lowerFloatValve;
+}
+
+void Configuration::setOneWire(int pin) {
+	this->_onewire = pin;
+}
+
+int Configuration::getOneWire() {
+	return this->_onewire;
 }
 
 void Configuration::erase() {

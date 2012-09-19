@@ -10,19 +10,21 @@
 #include "Arduino.h"
 #include "EEPROM.h"
 
-const int DEFAULT_PINOUT_OUTLET1 = 24;
-const int DEFAULT_PINOUT_OUTLET2 = 25;
-const int DEFAULT_PINOUT_OUTLET3 = 26;
-const int DEFAULT_PINOUT_OUTLET4 = 27;
-const int DEFAULT_PINOUT_OUTLET5 = 28;
-const int DEFAULT_PINOUT_OUTLET6 = 29;
-const int DEFAULT_PINOUT_OUTLET7 = 30;
-const int DEFAULT_PINOUT_OUTLET8 = 31;
-const int DEFAULT_PINOUT_RODIAQUARIUMSOLENOID = 32;
-const int DEFAULT_PINOUT_RODIRESERVOIRSOLENOID = 33;
-const int DEFAULT_PINOUT_AQUARIUMDRAINSOLENOID = 36;
+const int DEFAULT_PINOUT_OUTLET1 = 28;
+const int DEFAULT_PINOUT_OUTLET2 = 29;
+const int DEFAULT_PINOUT_OUTLET3 = 30;
+const int DEFAULT_PINOUT_OUTLET4 = 31;
+const int DEFAULT_PINOUT_OUTLET5 = 32;
+const int DEFAULT_PINOUT_OUTLET6 = 33;
+const int DEFAULT_PINOUT_OUTLET7 = 34;
+const int DEFAULT_PINOUT_OUTLET8 = 35;
+const int DEFAULT_PINOUT_RODIAQUARIUMSOLENOID = 36;
+const int DEFAULT_PINOUT_RODIRESERVOIRSOLENOID = 37;
+const int DEFAULT_PINOUT_AQUARIUMDRAINSOLENOID = 38;
+const int DEFAULT_PINOUT_SPARESOLENOID = 39;
 const int DEFAULT_PINOUT_RESERVOIRUPPERFLOATVALVE = 40;
 const int DEFAULT_PINOUT_RESERVOIRLOWERFLOATVALVE = 41;
+const int DEFAULT_PINOUT_ONEWIRE = 42;
 
 const bool DEFAULT_VALUE_AUTOWATERCHANGES = true;
 const bool DEFAULT_VALUE_AUTOFILLRESERVOIR = true;
@@ -40,6 +42,7 @@ const int DEFAULT_VALUE_AUTOWATERCHANGEMINUTES = 0;
 const int DEFAULT_VALUE_AUTOWATERCHANGEGALLONS = 1;
 const bool DEFAULT_VALUE_AUTOTOPOFF = true;
 const int DEFAULT_VALUE_AUTOTOPOFFMINUTES = 1;
+const int DEFAULT_VALUE_ONEWIRE = 42;
 
 const int EEPROM_AUTOWATERCHANGES = 12;
 const int EEPROM_AUTOFILLRESERVOIR = 13;
@@ -70,9 +73,10 @@ const int EEPROM_RODIRESERVOIRSOLENOID = 37;
 const int EEPROM_AQUARIUMDRAINSOLENOID = 38;
 const int EEPROM_RESERVOIRUPPERFLOATVALVE = 39;
 const int EEPROM_RESERVOIRLOWERFLOATVALVE = 40;
+const int EEPROM_ONEWIRE = 41;
 
 const int EEPROM_START_ADDRESS = 12;
-const int EEPROM_END_ADDRESS = 40;
+const int EEPROM_END_ADDRESS = 41;
 
 class Configuration {
 
@@ -106,6 +110,7 @@ class Configuration {
 		int _pin_aquariumDrainSolenoid; 	 // The pin that controls aquarium drain solenoid
 		int _pin_upperFloatValve;       	 // The pin that controls reservoir upper float valve
 		int _pin_lowerFloatValve;	       	 // The pin that controls reservoir lower float valve
+		int _onewire;						 // The pin that controls Dallas Temperature / OneWire
 
 	public:
 		Configuration();
@@ -169,6 +174,9 @@ class Configuration {
 
 		void setPinReservoirLowerFloatValve(int pin);
 		int getPinReservoirLowerFloatValve();
+
+		void setOneWire(int pin);
+		int getOneWire();
 };
 
 #endif

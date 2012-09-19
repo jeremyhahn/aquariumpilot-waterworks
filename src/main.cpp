@@ -32,6 +32,9 @@ extern void sendNotification(String message, String body);
 // Web service request buffer size
 #define BUFSIZE 255
 
+// Loads the application configs from EEPROM
+Configuration config;
+
 // API key required to communicate with the web service
 String apiKey = "ABC123";
 
@@ -67,8 +70,7 @@ const int AUTOTOPOFFHOUR = 14;
 const int AUTOTOPOFFMINUTE = 0;
 
 // Dallas temperature sensor
-#define ONE_WIRE_BUS 38
-OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(config.getOneWire());
 DallasTemperature sensors(&oneWire);
 DeviceAddress reservoirTemp = { 0x28, 0xC5, 0x05, 0x07, 0x04, 0x00, 0x00, 0xA0 };
 DeviceAddress roomTemp = { 0x28, 0x2A, 0x74, 0x28, 0x04, 0x00, 0x00, 0xE7 };
@@ -81,9 +83,6 @@ Gateway gateway;
 EthernetServer httpServer(80);
 EthernetClient httpClient;
 EthernetClient smtpClient;
-
-// Loads the application configs from EEPROM
-Configuration config;
 
 Chronodot RTC;
 /*
@@ -120,9 +119,6 @@ void setup() {
 	//int sdcardPin = 4;
 	//int ethernetPin = 53;
 
-	//for(int i = 0; i < 512; i++)
-		//EEPROM.write(i, 0);
-
 	//ipAddress.set(192, 168, 11, 51);
 	//netmask.set(255, 255, 255, 0);
 	//gateway.set(192, 168, 11, 1);
@@ -157,6 +153,7 @@ void setup() {
 
 	pinMode(config.getPinReservoirUpperFloatValve(), INPUT);
 	pinMode(config.getPinReservoirLowerFloatValve(), INPUT);
+	pinMode(config.getOneWire(), INPUT);
 
 	Wire.begin();
 	RTC.begin();
@@ -503,6 +500,9 @@ void factoryReset() {
 	netmask.erase();
 	gateway.erase();
 	config.erase();
+
+	//for(int i = 0; i < 512; i++)
+		//EEPROM.write(i, 0);
 }
 
 void checkUpperReservoirLevel() {
@@ -903,7 +903,8 @@ void loop() {
 						jsonOut += "\"pinRodiReservoirSolenoid\":\"" + String(config.getPinRodiReservoirSolenoid()) + "\", ";
 						jsonOut += "\"pinAquariumDrainSolenoid\":\"" + String(config.getPinAquariumDrainSolenoid()) + "\", ";
 						jsonOut += "\"pinUpperFloatValve\":\"" + String(config.getPinReservoirUpperFloatValve()) + "\", ";
-						jsonOut += "\"pinLowerFloatValve\":\"" + String(config.getPinReservoirLowerFloatValve()) + "\" ";
+						jsonOut += "\"pinLowerFloatValve\":\"" + String(config.getPinReservoirLowerFloatValve()) + "\", ";
+						jsonOut += "\"oneWire\":\"" + String(config.getOneWire()) + "\" ";
 					jsonOut += "}";
 				}
 				// /reset
